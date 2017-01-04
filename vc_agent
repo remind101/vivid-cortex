@@ -2,15 +2,15 @@
 
 make_credentials () {
   if [ -z $AWS_ACCESS_KEY_ID ]; then
-    echo "AWS Access Key ID is not set in the environment variables. AWS credentials will not be created."
+    echo "AWS_ACCESS_KEY_ID is not set in the environment variables. AWS credentials will not be created."
   elif [ -z $AWS_SECRET_ACCESS_KEY ]; then
-    echo "AWS Secret Access Key is not set in the environment variables.  AWS credentials will not be created."
+    echo "AWS_SECRET_ACCESS_KEY is not set in the environment variables. AWS credentials will not be created."
   else
     echo "Creating AWS credentials file."
-    mkdir ~/.aws
-    echo "[default]" >> ~/.aws/credentials
-    echo "aws_access_key_id=$AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
-    echo "aws_secret_accesS_key=$AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
+    mkdir $HOME/.aws
+    echo "[default]" >> $HOME/.aws/credentials
+    echo "aws_access_key_id=$AWS_ACCESS_KEY_ID" >> $HOME/.aws/credentials
+    echo "aws_secret_access_key=$AWS_SECRET_ACCESS_KEY" >> $HOME/.aws/credentials
   fi
 }
 
@@ -24,7 +24,7 @@ export VC_AGENT_INSTALL_DIR=$VC_HOME/bin
 export VC_DRV_MANUAL_HOST_URI="$DATABASE_URL"
 export VC_HOSTNAME="${VC_HOSTNAME:-$(hostname)}"
 
-[ -f ~/.aws/credentials ] || make_credentials
+[ -f $HOME/.aws/credentials ] || make_credentials
 
 export PATH=$PATH:$VC_AGENT_INSTALL_DIR
 
